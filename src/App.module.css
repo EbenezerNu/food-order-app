@@ -1,0 +1,52 @@
+.col {
+  display: flex;
+  flex-flow: column !important;
+  justify-content: space-evenly;
+  /* padding-top: 3rem; */
+}
+
+.body {
+  padding-top: 20rem !important;
+  background-image: url("./components/UI/meals.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  justify-content: center;
+}
+
+.loading,
+.error {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: center;
+  width: 30vw;
+  /* min-height: 2rem;*/
+  max-height: 5rem;
+  border-radius: 2rem;
+  margin: auto;
+  margin-top: 4rem !important;
+}
+
+.loading {
+  color: black;
+  background-color: white;
+}
+
+.error {
+  color: white;
+  background-color: red;
+}
+
+.loading p {
+  text-align: center;
+  color: black;
+  background-color: white;
+  font-size: large;
+}
+
+.error p {
+  text-align: center;
+  color: white;
+  font-size: large;
+  background-color: red;
+}
