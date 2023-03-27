@@ -16,24 +16,32 @@ function App() {
 
   useEffect(() => {
     try {
+      setIsLoading(true);
       const fetchMeals = async () => {
-        const new_meals = await fetch(
-          "https://react-http-d4113-default-rtdb.firebaseio.com/meals.json"
-        );
-        if (!new_meals.ok) {
-          throw Error("Failed to fetch meals");
+        try {
+          const new_meals = await fetch(
+            "https://react-http-d4113-default-rtdb.firebaseio.com/meals.json"
+          );
+          if (new_meals === undefined || !new_meals.ok) {
+            throw Error("Failed to fetch meals");
+          }
+          const mealsJson = await new_meals.json();
+          let fetchedMeals = [];
+          for (const key in mealsJson) {
+            fetchedMeals.push({
+              id: key,
+              name: mealsJson[key].name,
+              description: mealsJson[key].description,
+              price: mealsJson[key].price,
+            });
+          }
+          setMeals(fetchedMeals);
+          setError("");
+          setIsLoading(false);
+        } catch (error) {
+          setError(error.message);
+          setIsLoading(false);
         }
-        const mealsJson = await new_meals.json();
-        let fetchedMeals = [];
-        for (const key in mealsJson) {
-          fetchedMeals.push({
-            id: key,
-            name: mealsJson[key].name,
-            description: mealsJson[key].description,
-            price: mealsJson[key].price,
-          });
-        }
-        setMeals(fetchedMeals);
       };
 
       fetchMeals();
@@ -41,8 +49,6 @@ function App() {
       setError(e.message);
       setIsLoading(false);
     }
-    setError("");
-    setIsLoading(false);
   }, []);
 
   return (
@@ -61,7 +67,12 @@ function App() {
               <p>{error}</p>
             </div>
           )}
-          {!isLoading && <AvailableMeals />}
+          {!isLoading && error === "" && meals?.length === 0 && (
+            <div className={classes.no_meal}>
+              <p>No Meals Available</p>
+            </div>
+          )}
+          {!isLoading && meals.length > 0 && <AvailableMeals />}
         </div>
       </CartProvider>
     </MealsContext.Provider>

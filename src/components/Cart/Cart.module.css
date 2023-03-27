@@ -2,7 +2,12 @@
   /* margin: auto; */
   position: fixed;
   /* margin-top: 25% !important; */
-  margin: 25%;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  /* bottom: 0px; */
+  margin-top: 30vh !important;
+  margin: auto;
   z-index: 30;
   align-self: center;
   width: 70%;
