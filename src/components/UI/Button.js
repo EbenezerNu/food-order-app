@@ -6,6 +6,7 @@ const Button = (props) => {
       onClick={props.onClick || (() => {})}
       className={classes.button + " " + props?.className}
       title={props.title}
+      disabled={props.disabled === null ? false : props.disabled}
     >
       {props.text}
     </button>

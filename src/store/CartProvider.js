@@ -30,12 +30,34 @@ const cartReducer = (state, action) => {
     state.items = state.items.filter(
       (item) => item.name.trim() !== action.val.name.trim()
     );
+  } else if (action.type === "CLEAR_CART") {
+    state.items = [];
+  } else if (action.type === "UPDATE_ADDRESS") {
+    const { address, cardNumber, cvv } = { ...action.val };
+    if (address !== undefined && address !== null && address.trim() !== "") {
+      state.accounts = { address: address, ...state.accounts };
+    }
+    if (
+      cardNumber !== undefined &&
+      cardNumber !== null &&
+      cardNumber.trim() !== ""
+    ) {
+      state.accounts = { cardNumber: cardNumber, ...state.accounts };
+    }
+    if (cvv !== undefined && cvv !== null && cvv.trim() !== "") {
+      state.accounts = { cvv: cvv, ...state.accounts };
+    }
+    console.log(
+      "Accounts details has been saved and Order has been created\n" +
+        { ...state.accounts }
+    );
   }
 
   return {
     items: state.items,
     totalAmount: calcTotalAmount(state.items),
     totalItems: calcTotalItems(state.items),
+    accounts: state.accounts,
   };
 };
 
@@ -72,6 +94,7 @@ const CartProvider = (props) => {
     items: [],
     totalAmount: 0,
     totalItems: 0,
+    accounts: {},
   });
 
   // const ctx = useContext(CartItemsContext);
@@ -91,6 +114,14 @@ const CartProvider = (props) => {
     // }
   };
 
+  const saveOrderDetailsHandler = (order) => {
+    dispatchCartState({ val: order, type: "UPDATE_ADDRESS" });
+  };
+
+  const clearCartHandler = () => {
+    dispatchCartState({ type: "CLEAR_CART" });
+  };
+
   // useEffect(() => {
   //   console.log("Calculating total price");
   //   dispatchCartState({ type: "CHECK_TOTAL" });
@@ -102,6 +133,9 @@ const CartProvider = (props) => {
     totalItems: cartState.totalItems,
     addItem: (item) => addItemHandler(item),
     removeItem: (item) => removeItemHandler(item),
+    accounts: cartState.accounts,
+    saveOrderDetails: (order) => saveOrderDetailsHandler(order),
+    clearCart: () => clearCartHandler(),
   };
 
   return (

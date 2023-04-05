@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./App.module.css";
 import Header from "./components/Header/Header";
 import MealsContext from "./store/mealsContext";
@@ -8,11 +8,11 @@ import MealsSummary from "./components/MealsSummary/MealsSummary";
 import CartProvider from "./store/CartProvider";
 // import Card from "./components/UI/Card";
 function App() {
-  const ctxMeals = useContext(MealsContext);
+  // const ctxMeals = useContext(MealsContext);
   const [meals, setMeals] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  console.log("Context : ", ctxMeals);
+  // console.log("Context : ", ctxMeals);
 
   useEffect(() => {
     setIsLoading(true);

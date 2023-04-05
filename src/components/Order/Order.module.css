@@ -1,0 +1,40 @@
+.orderForm {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.voucher,
+.address,
+.cardNumber,
+.cvv {
+  flex-flow: row;
+  flex: 30% 60%;
+  justify-content: space-between;
+}
+
+.voucher input,
+.address input,
+.address textarea,
+.cardNumber input,
+.cvv input {
+  width: 70% !important;
+  max-width: 65vh;
+  min-height: 2.5rem;
+}
+
+.address textarea {
+  height: 5rem !important;
+}
+
+/* .visaPin {
+    jsut !important;
+}
+   */
+
+.cvv input {
+  max-width: 5rem !important;
+  justify-self: left;
+}
